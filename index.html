@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <title>3D Игра</title>
+  <title>Майнкрафт</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/131.0.0/three.min.js"></script>
 </head>
 <body>
   <canvas id="canvas" width="600" height="400"></canvas>
   <script>
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("canvas") });
+    // Импортируем необходимые библиотеки
+    const THREE = window.THREE;
+    const {
+      BoxGeometry,
+      MeshBasicMaterial,
+      PerspectiveCamera,
+      WebGLRenderer,
+    } = THREE;
 
-    var geometry = new THREE.BoxGeometry(100, 100, 100);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-    var cube = new THREE.Mesh(geometry, material);
+    // Создаем сцену
+    const scene = new THREE.Scene();
 
+    // Создаем камеру
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    // Создаем рендерер
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("canvas") });
+
+    // Создаем геометрию куба
+    const geometry = new BoxGeometry(100, 100, 100);
+
+    // Создаем материал куба
+    const material = new MeshBasicMaterial({ color: 0x0000ff });
+
+    // Создаем куб
+    const cube = new THREE.Mesh(geometry, material);
+
+    // Добавляем куб в сцену
     scene.add(cube);
 
+    // Устанавливаем позицию камеры
     camera.position.z = 500;
 
+    // Устанавливаем размер рендерера
     renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Отрисовываем сцену
     renderer.render(scene, camera);
 
+    // Обработчик события "resize"
     window.addEventListener("resize", function() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
